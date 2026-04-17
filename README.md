@@ -5,94 +5,169 @@
 ![Hardhat](https://img.shields.io/badge/Hardhat-Ready-yellow.svg)
 ![Next.js](https://img.shields.io/badge/Next.js-13.0.0-blueviolet.svg)
 
+---
 
-This project is a Book Store Management System built using Next.js, Daisy UI, Hardhat, and MetaMask. It allows users to interact with the Ethereum blockchain and the BookStore smart contract to add books to the catalog and purchase books using Ether.
+## Overview
 
-## Description
+This project is a decentralized Book Store Management System built using Ethereum smart contracts and a modern web frontend.
 
-This Book Store Management System is a decentralized application (DApp) that utilizes Next.js as the frontend framework, Daisy UI for user interface components, Hardhat for smart contract development and testing, and MetaMask as the Ethereum wallet provider. The DApp enables users to perform two main functions:
+The system allows users to interact with a blockchain-based bookstore where books can be added, purchased, and retrieved. It demonstrates full integration between a frontend application and a blockchain backend using MetaMask and ethers.js.
 
-1. Add Books: The owner of the smart contract (the bookstore owner) can add new books to the catalog by providing the book title, author, price, and initial stock.
+---
 
-2. Purchase Books: Users can purchase books from the catalog by specifying the book ID and the desired quantity. The purchase is made using Ether, and the corresponding amount is transferred to the smart contract. If the transaction is successful, the user receives the purchased books.
+## Key Features
+
+- Add books (owner only)
+- Purchase books using ETH
+- View individual book details
+- Display all available books (catalogue)
+- Withdraw contract funds (owner only)
+- Role-based access control (owner vs user)
+- Real-time blockchain interaction
+
+---
+
+## Technologies Used
+
+### Frontend
+- Next.js
+- TypeScript
+- Tailwind CSS
+- Ethers.js
+
+### Backend
+- Solidity
+- Hardhat
+
+### Blockchain & Tools
+- Ethereum (Hardhat local test network)
+- MetaMask
+
+---
+
+## Smart Contract Functionality
+
+The BookStore smart contract includes:
+
+- `addBook()` – Adds new books (owner only)
+- `purchaseBook()` – Allows users to buy books using ETH
+- `getBook()` – Retrieves book details
+- `getAllBooks()` – Returns full book catalogue
+- `withdrawFunds()` – Owner withdraws contract balance
+
+Additional improvements:
+- Input validation using `require`
+- Ownership control using `onlyOwner`
+- Event logging for transactions
+- Purchase tracking using mappings
+
+---
 
 ## Getting Started
 
 ### Prerequisites
 
-To run this Book Store Management System locally, you need the following installed:
+To run this application locally:
 
-1. Node.js (https://nodejs.org) - Make sure to install Node.js LTS version or later.
-2. MetaMask extension (https://metamask.io) - Set up an Ethereum wallet with MetaMask.
-3. Hardhat (https://hardhat.org) - Install Hardhat to compile and deploy the smart contract.
+- Node.js (LTS recommended)
+- MetaMask extension
+- Hardhat
+- Git
+
+---
 
 ### Installation
 
-1. Clone the repository:
+Clone your repository:
 
 ```bash
-git clone https://github.com/masterpranay1/Book-Store-DApp.git
+git clone https://github.com/dhwanikayare/Book-Store-DApp.git
 cd Book-Store-DApp
-```
 
-2. Install dependencies:
+Install dependencies:
 
-```bash
 npm install
-```
+Smart Contract Setup
 
+Compile the smart contract:
 
-### Smart Contract Deployment
+npx hardhat compile
 
-To deploy the BookStore smart contract, you can use the following command:
+Start local blockchain:
 
-```bash
-npx hardhat run --network localhost scripts/deploy.ts
-```
+npx hardhat node
 
-Explanation:
-- `npx`: This is a package runner tool that comes with npm and is used to run packages from the command line.
-- `hardhat`: This is the command to execute Hardhat tasks, such as compiling and deploying smart contracts.
-- `run`: This sub-command is used to execute a custom script.
-- `--network localhost`: This flag specifies the network you want to deploy the smart contract to. In this case, you are deploying to the local development network (localhost).
-- `scripts/deploy.ts`: This is the path to the TypeScript script responsible for deploying the smart contract.
+Deploy contract (in a new terminal):
 
-Ensure that you have set up your Hardhat environment and configured the local development network correctly in your `hardhat.config.ts` file before running the deployment command.
+npx hardhat run scripts/deploy.ts --network localhost
 
-### Running the Next.js Application
+Copy the deployed contract address.
 
-1. Start the Next.js development server:
+Environment Configuration
 
-```bash
+Create .env.local:
+
+NEXT_PUBLIC_CONTRACT_ADDRESS=YOUR_DEPLOYED_CONTRACT_ADDRESS
+Run Frontend
 npm run dev
-```
 
-2. Open your browser and navigate to `http://localhost:3000` to access the Book Store Management System.
+Open:
 
-### Usage
+http://localhost:3000
+MetaMask Configuration
 
-1. Adding a Book:
+Add Hardhat network:
 
-   - Connect your MetaMask wallet to the application.
-   - Ensure you are logged in as the owner of the smart contract (you can specify the owner during smart contract deployment).
-   - Fill in the book details (title, author, price, stock) in the provided form fields.
-   - Click the "Add Book" button to add the book to the catalog.
+Network Name: Hardhat Localhost
+RPC URL: http://127.0.0.1:8545
+Chain ID: 31337
+Currency Symbol: ETH
 
-2. Purchasing a Book:
+Import a test account using a private key from Hardhat.
 
-   - Connect your MetaMask wallet to the application.
-   - Provide the book ID and the quantity you wish to purchase in the appropriate form fields.
-   - Click the "Purchase" button to initiate the transaction and send Ether to the smart contract.
-   - Confirm the transaction in MetaMask to complete the purchase.
+Usage
+1. Connect Wallet
+Click "Connect Wallet"
+Approve MetaMask connection
+2. Add Book (Owner Only)
+Enter book details
+Submit form
+Book appears in catalogue
+3. Purchase Book
+Enter Book ID and quantity
+Confirm transaction in MetaMask
+Stock updates automatically
+4. Get Book Details
+Enter Book ID
+View stored blockchain data
+5. Withdraw Funds (Owner Only)
+Withdraw ETH from contract balance
+Code Quality
 
-3. Get a Book
+Code quality is maintained using ESLint integrated with Next.js. This ensures consistent coding standards and reduces potential errors.
 
-    - Connect your MetaMask wallet to the   application.
-    - Provide the book ID
-    - Click the "Get Book" button to initiate the transaction and get the book details.
+Run:
+
+npm run lint
+Version Control
+
+The project is managed using Git and hosted on GitHub. Development was tracked through multiple commits reflecting:
+
+Smart contract enhancements
+Frontend improvements
+Blockchain interaction fixes
+Final integration and testing
+Future Improvements
+Deploy to public testnet (e.g., Sepolia)
+Add search and filtering
+Improve UI/UX further
+Add transaction history
+Implement user authentication
+Author
+
+Your Name
+GitHub: https://github.com/dhwanikayare
 
 
-## Authors
+---
 
-Pranay Raj  
-[Linkedin](https://www.linkedin.com/in/masterpranay/)
