@@ -88,23 +88,23 @@ cd Book-Store-DApp
 ## Install dependencies:
 
 
-npm install
+`npm install`
 
 
 
 ### Smart Contract Setup
 
 ## Compile the smart contract:
-```bash
-npx hardhat compile
+
+`npx hardhat compile`
 
 ## Start local blockchain:
 
-npx hardhat node
+`npx hardhat node`
 
 ## Deploy contract (in a new terminal):
 
-npx hardhat run scripts/deploy.ts --network localhost
+`npx hardhat run scripts/deploy.ts --network localhost`
 
 ## Copy the deployed contract address.
 
@@ -112,26 +112,26 @@ npx hardhat run scripts/deploy.ts --network localhost
 
 ## Create .env.local:
 
-NEXT_PUBLIC_CONTRACT_ADDRESS=YOUR_DEPLOYED_CONTRACT_ADDRESS
+`NEXT_PUBLIC_CONTRACT_ADDRESS=YOUR_DEPLOYED_CONTRACT_ADDRESS`
 
 ## Run Frontend
-npm run dev
+`npm run dev`
 
-##Open:
+## Open:
 
-http://localhost:3000
-MetaMask Configuration
+`http://localhost:3000`
+### MetaMask Configuration
 
-##Add Hardhat network:
+## Add Hardhat network:
 
-Network Name: Hardhat Localhost
-RPC URL: http://127.0.0.1:8545
-Chain ID: 31337
-Currency Symbol: ETH
+`Network Name: Hardhat Localhost`
+`RPC URL: http://127.0.0.1:8545`
+`Chain ID: 31337`
+`Currency Symbol: ETH`
 
-##Import a test account using a private key from Hardhat.
+## Import a test account using a private key from Hardhat.
 
-##Usage
+## Usage
 1. Connect Wallet
 Click "Connect Wallet"
 Approve MetaMask connection
@@ -155,8 +155,9 @@ Withdraw ETH from contract balance
 
 Run:
 
-npm run lint
-Version Control
+`npm run lint`
+
+### Version Control
 
 ## The project is managed using Git and hosted on GitHub. Development was tracked through multiple commits reflecting:
 
