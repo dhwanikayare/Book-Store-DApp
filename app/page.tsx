@@ -362,37 +362,43 @@ export default function Home() {
             )}
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-4">
-            <div className="flex flex-col border p-4 gap-4 rounded-lg">
-              <h2 className="text-xl font-bold">Purchase Book</h2>
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col gap-4">
+  <h2 className="text-xl font-semibold text-slate-800">Purchase Book</h2>
 
-              <label htmlFor="bookIdPurchase">Book ID:</label>
-              <input
-                type="number"
-                id="bookIdPurchase"
-                value={bookIdPurchase}
-                className="border rounded p-2"
-                onChange={(e) => setBookIdPurchase(e.target.value)}
-              />
+  <div>
+    <label htmlFor="bookIdPurchase" className="text-sm font-medium text-slate-700">
+      Book ID
+    </label>
+    <input
+      type="number"
+      id="bookIdPurchase"
+      value={bookIdPurchase}
+      className="w-full mt-1 rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+      onChange={(e) => setBookIdPurchase(e.target.value)}
+    />
+  </div>
 
-              <label htmlFor="quantity">Quantity:</label>
-              <input
-                className="border rounded p-2"
-                type="number"
-                id="quantity"
-                value={quantity}
-                onChange={(e) => setQuantity(e.target.value)}
-              />
+  <div>
+    <label htmlFor="quantity" className="text-sm font-medium text-slate-700">
+      Quantity
+    </label>
+    <input
+      type="number"
+      id="quantity"
+      value={quantity}
+      className="w-full mt-1 rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+      onChange={(e) => setQuantity(e.target.value)}
+    />
+  </div>
 
-              <button
-                onClick={purchaseBook}
-                className="border rounded-lg px-4 py-2 font-semibold"
-                disabled={isPurchasing}
-              >
-                {isPurchasing ? "Processing..." : "Purchase"}
-              </button>
-            </div>
-
+  <button
+    onClick={purchaseBook}
+    className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl px-4 py-3 transition disabled:opacity-50"
+    disabled={isPurchasing}
+  >
+    {isPurchasing ? "Processing..." : "Purchase"}
+  </button>
+</div>
             {isOwner && (
               <div className="flex flex-col border p-4 gap-4 rounded-lg">
                 <h2 className="text-xl font-bold">Add Book</h2>
