@@ -16,6 +16,12 @@ type BookCard = {
   price: string;
   stock: string;
 };
+
+const shortenAddress = (address: string) => {
+  if (!address) return "";
+  return `${address.slice(0, 6)}...${address.slice(-4)}`;
+};
+
 export default function Home() {
   const contractABI = atm_abi.abi;
   const contractAddress =
@@ -282,227 +288,393 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
+   useEffect(() => {
     if (contract) {
       fetchAllBooks();
     }
   }, [contract]);
 
+  const inputClass =
+    "w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-800 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200";
+
+  const primaryButtonClass =
+    "rounded-xl bg-blue-600 px-4 py-3 font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50";
+
+  const secondaryButtonClass =
+    "rounded-xl border border-slate-300 bg-white px-4 py-3 font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50";
+
+  const cardClass =
+    "rounded-2xl border border-slate-200 bg-white p-6 shadow-sm";
+
   return (
-    <main className="min-h-screen bg-slate-50 px-6 md:px-12 py-10">
-     <h1 className="text-4xl md:text-5xl font-bold text-center text-slate-800 mb-3">
-  Book Store DApp
-</h1>
-<p className="text-center text-slate-500 mb-10">
-  A decentralized bookstore powered by Ethereum smart contracts
-</p>
+    <main className="min-h-screen bg-slate-50 px-6 py-10 md:px-12 lg:px-16">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-10 text-center">
+          <h1 className="mb-3 text-4xl font-bold text-slate-800 md:text-5xl">
+            Book Store DApp
+          </h1>
+          <p className="mx-auto max-w-2xl text-base text-slate-500 md:text-lg">
+            A decentralized bookstore powered by Ethereum smart contracts,
+            MetaMask, and a local blockchain test network.
+          </p>
+        </div>
 
-      {!contract && (
-        <button
-          onClick={connectToContract}
-          className="border rounded-lg px-6 py-3 mx-auto font-semibold"
-          disabled={isConnecting}
-        >
-          {isConnecting ? "Connecting..." : "Connect Wallet"}
-        </button>
-      )}
-
-      {contract && (
-        <>
-          <div className="border rounded-lg p-4 mb-8">
-            <p>
-              <strong>Connected Account:</strong> {account}
+        {!contract && (
+          <div className="mx-auto mb-10 max-w-xl rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-sm">
+            <h2 className="mb-3 text-2xl font-semibold text-slate-800">
+              Connect your wallet
+            </h2>
+            <p className="mb-6 text-slate-500">
+              Connect MetaMask to interact with the bookstore, manage books, and
+              send blockchain transactions.
             </p>
-            <p>
-              <strong>Contract Owner:</strong> {owner}
-            </p>
-            <p>
-              <strong>Role:</strong> {isOwner ? "Owner/Admin" : "Customer"}
-            </p>
-            <p>
-              <strong>Status:</strong> {statusMessage || "Ready"}
-            </p>
+            <button
+              onClick={connectToContract}
+              className={primaryButtonClass}
+              disabled={isConnecting}
+            >
+              {isConnecting ? "Connecting..." : "Connect Wallet"}
+            </button>
           </div>
+        )}
 
-          <div className="mb-10">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-2xl font-bold">Available Books</h2>
-              <button
-                onClick={() => fetchAllBooks()}
-                className="border rounded-lg px-4 py-2"
-              >
-                Refresh Catalogue
-              </button>
+        {contract && (
+          <>
+            <div className="mb-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+              <div className={cardClass}>
+                <p className="mb-2 text-sm font-medium text-slate-500">
+                  Connected Account
+                </p>
+                <p className="break-all text-lg font-semibold text-slate-800">
+                  {shortenAddress(account)}
+                </p>
+              </div>
+
+              <div className={cardClass}>
+                <p className="mb-2 text-sm font-medium text-slate-500">
+                  Contract Owner
+                </p>
+                <p className="break-all text-lg font-semibold text-slate-800">
+                  {shortenAddress(owner)}
+                </p>
+              </div>
+
+              <div className={cardClass}>
+                <p className="mb-2 text-sm font-medium text-slate-500">Role</p>
+                <span
+                  className={`inline-flex rounded-full px-3 py-1 text-sm font-semibold ${
+                    isOwner
+                      ? "bg-emerald-100 text-emerald-700"
+                      : "bg-blue-100 text-blue-700"
+                  }`}
+                >
+                  {isOwner ? "Owner / Admin" : "Customer"}
+                </span>
+              </div>
+
+              <div className={cardClass}>
+                <p className="mb-2 text-sm font-medium text-slate-500">Status</p>
+                <p className="text-sm font-medium text-slate-800">
+                  {statusMessage || "Ready"}
+                </p>
+              </div>
             </div>
 
-            {isFetchingBooks ? (
-              <p>Loading books...</p>
-            ) : books.length === 0 ? (
-              <p>No books available yet.</p>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                {books.map((book) => (
-                  <div key={book.id} className="border p-4 rounded-lg shadow-sm">
-                    <h3 className="text-lg font-bold">{book.title}</h3>
-                    <p>
-                      <strong>ID:</strong> {book.id}
-                    </p>
-                    <p>
-                      <strong>Author:</strong> {book.author}
-                    </p>
-                    <p>
-                      <strong>Price:</strong> {book.price} ETH
-                    </p>
-                    <p>
-                      <strong>Stock:</strong> {book.stock}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col gap-4">
-  <h2 className="text-xl font-semibold text-slate-800">Purchase Book</h2>
-
-  <div>
-    <label htmlFor="bookIdPurchase" className="text-sm font-medium text-slate-700">
-      Book ID
-    </label>
-    <input
-      type="number"
-      id="bookIdPurchase"
-      value={bookIdPurchase}
-      className="w-full mt-1 rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
-      onChange={(e) => setBookIdPurchase(e.target.value)}
-    />
-  </div>
-
-  <div>
-    <label htmlFor="quantity" className="text-sm font-medium text-slate-700">
-      Quantity
-    </label>
-    <input
-      type="number"
-      id="quantity"
-      value={quantity}
-      className="w-full mt-1 rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
-      onChange={(e) => setQuantity(e.target.value)}
-    />
-  </div>
-
-  <button
-    onClick={purchaseBook}
-    className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl px-4 py-3 transition disabled:opacity-50"
-    disabled={isPurchasing}
-  >
-    {isPurchasing ? "Processing..." : "Purchase"}
-  </button>
-</div>
-            {isOwner && (
-              <div className="flex flex-col border p-4 gap-4 rounded-lg">
-                <h2 className="text-xl font-bold">Add Book</h2>
-
-                <label htmlFor="title">Title:</label>
-                <input
-                  className="border rounded p-2"
-                  type="text"
-                  id="title"
-                  value={bookDataAdd.title}
-                  onChange={(e) =>
-                    setBookDataAdd({ ...bookDataAdd, title: e.target.value })
-                  }
-                />
-
-                <label htmlFor="author">Author:</label>
-                <input
-                  className="border rounded p-2"
-                  type="text"
-                  id="author"
-                  value={bookDataAdd.author}
-                  onChange={(e) =>
-                    setBookDataAdd({ ...bookDataAdd, author: e.target.value })
-                  }
-                />
-
-                <label htmlFor="price">Price in ETH:</label>
-                <input
-                  className="border rounded p-2"
-                  type="number"
-                  id="price"
-                  value={bookDataAdd.price}
-                  onChange={(e) =>
-                    setBookDataAdd({ ...bookDataAdd, price: e.target.value })
-                  }
-                />
-
-                <label htmlFor="stock">Stock:</label>
-                <input
-                  className="border rounded p-2"
-                  type="number"
-                  id="stock"
-                  value={bookDataAdd.stock}
-                  onChange={(e) =>
-                    setBookDataAdd({ ...bookDataAdd, stock: e.target.value })
-                  }
-                />
+            <div className="mb-10">
+              <div className="mb-4 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
+                <div>
+                  <h2 className="text-2xl font-bold text-slate-800">
+                    📚 Available Books
+                  </h2>
+                  <p className="text-slate-500">
+                    Browse the current on-chain bookstore catalogue.
+                  </p>
+                </div>
 
                 <button
-                  className="border rounded-lg px-4 py-2 font-semibold"
-                  onClick={addBook}
-                  disabled={isAdding}
+                  onClick={() => fetchAllBooks()}
+                  className={secondaryButtonClass}
                 >
-                  {isAdding ? "Adding..." : "Add Book"}
-                </button>
-
-                <button
-                  className="border rounded-lg px-4 py-2 font-semibold"
-                  onClick={withdrawFunds}
-                  disabled={isWithdrawing}
-                >
-                  {isWithdrawing ? "Withdrawing..." : "Withdraw Funds"}
-                </button>
-              </div>
-            )}
-
-            <div className="p-4 border rounded-lg">
-              <div className="w-full flex flex-col gap-4">
-                <h2 className="text-xl font-bold">Get Book by ID</h2>
-
-                <label htmlFor="bookIdGet">Book ID:</label>
-                <input
-                  type="number"
-                  id="bookIdGet"
-                  value={bookIdGet}
-                  onChange={(e) => setBookIdGet(e.target.value)}
-                  className="border rounded p-2"
-                />
-
-                <button
-                  onClick={getBook}
-                  className="border rounded-lg px-4 py-2 font-semibold"
-                >
-                  Get Book
+                  Refresh Catalogue
                 </button>
               </div>
 
-              <div className="flex flex-col gap-4 mt-6">
-                <h2 className="text-xl">Book Details</h2>
-                {isBookLoading ? (
-                  <p>Loading...</p>
-                ) : (
+              {isFetchingBooks ? (
+                <div className={cardClass}>
+                  <p className="text-slate-500">Loading books...</p>
+                </div>
+              ) : books.length === 0 ? (
+                <div className={cardClass}>
+                  <p className="text-slate-500">No books available yet.</p>
+                </div>
+              ) : (
+                <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                  {books.map((book) => (
+                    <div
+                      key={book.id}
+                      className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:shadow-md"
+                    >
+                      <div className="mb-3 flex items-start justify-between gap-3">
+                        <div>
+                          <h3 className="text-xl font-bold text-slate-800">
+                            {book.title}
+                          </h3>
+                          <p className="text-sm text-slate-500">
+                            by {book.author}
+                          </p>
+                        </div>
+                        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
+                          ID {book.id}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <span className="text-lg font-semibold text-blue-600">
+                          {book.price} ETH
+                        </span>
+                        <span className="rounded-full bg-amber-100 px-3 py-1 text-sm font-medium text-amber-700">
+                          Stock: {book.stock}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="grid gap-8 lg:grid-cols-3">
+              <div className={cardClass}>
+                <h2 className="mb-1 text-xl font-bold text-slate-800">
+                  🛒 Purchase Book
+                </h2>
+                <p className="mb-5 text-sm text-slate-500">
+                  Buy available books by entering the book ID and quantity.
+                </p>
+
+                <div className="space-y-4">
                   <div>
-                    <p>Title: {bookDataGet.title}</p>
-                    <p>Author: {bookDataGet.author}</p>
-                    <p>Price: {bookDataGet.price} ETH</p>
-                    <p>Stock: {bookDataGet.stock}</p>
+                    <label
+                      htmlFor="bookIdPurchase"
+                      className="mb-1 block text-sm font-medium text-slate-700"
+                    >
+                      Book ID
+                    </label>
+                    <input
+                      type="number"
+                      id="bookIdPurchase"
+                      value={bookIdPurchase}
+                      className={inputClass}
+                      onChange={(e) => setBookIdPurchase(e.target.value)}
+                    />
                   </div>
-                )}
+
+                  <div>
+                    <label
+                      htmlFor="quantity"
+                      className="mb-1 block text-sm font-medium text-slate-700"
+                    >
+                      Quantity
+                    </label>
+                    <input
+                      type="number"
+                      id="quantity"
+                      value={quantity}
+                      className={inputClass}
+                      onChange={(e) => setQuantity(e.target.value)}
+                    />
+                  </div>
+
+                  <button
+                    onClick={purchaseBook}
+                    className={`w-full ${primaryButtonClass}`}
+                    disabled={isPurchasing}
+                  >
+                    {isPurchasing ? "Processing..." : "Purchase Book"}
+                  </button>
+                </div>
+              </div>
+
+              {isOwner && (
+                <div className={cardClass}>
+                  <h2 className="mb-1 text-xl font-bold text-slate-800">
+                    ➕ Add Book
+                  </h2>
+                  <p className="mb-5 text-sm text-slate-500">
+                    Owner only section for adding new books to the catalogue.
+                  </p>
+
+                  <div className="space-y-4">
+                    <div>
+                      <label
+                        htmlFor="title"
+                        className="mb-1 block text-sm font-medium text-slate-700"
+                      >
+                        Title
+                      </label>
+                      <input
+                        className={inputClass}
+                        type="text"
+                        id="title"
+                        value={bookDataAdd.title}
+                        onChange={(e) =>
+                          setBookDataAdd({
+                            ...bookDataAdd,
+                            title: e.target.value,
+                          })
+                        }
+                      />
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="author"
+                        className="mb-1 block text-sm font-medium text-slate-700"
+                      >
+                        Author
+                      </label>
+                      <input
+                        className={inputClass}
+                        type="text"
+                        id="author"
+                        value={bookDataAdd.author}
+                        onChange={(e) =>
+                          setBookDataAdd({
+                            ...bookDataAdd,
+                            author: e.target.value,
+                          })
+                        }
+                      />
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="price"
+                        className="mb-1 block text-sm font-medium text-slate-700"
+                      >
+                        Price in ETH
+                      </label>
+                      <input
+                        className={inputClass}
+                        type="number"
+                        id="price"
+                        value={bookDataAdd.price}
+                        onChange={(e) =>
+                          setBookDataAdd({
+                            ...bookDataAdd,
+                            price: e.target.value,
+                          })
+                        }
+                      />
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="stock"
+                        className="mb-1 block text-sm font-medium text-slate-700"
+                      >
+                        Stock
+                      </label>
+                      <input
+                        className={inputClass}
+                        type="number"
+                        id="stock"
+                        value={bookDataAdd.stock}
+                        onChange={(e) =>
+                          setBookDataAdd({
+                            ...bookDataAdd,
+                            stock: e.target.value,
+                          })
+                        }
+                      />
+                    </div>
+
+                    <div className="grid gap-3 md:grid-cols-2">
+                      <button
+                        className={primaryButtonClass}
+                        onClick={addBook}
+                        disabled={isAdding}
+                      >
+                        {isAdding ? "Adding..." : "Add Book"}
+                      </button>
+
+                      <button
+                        className={secondaryButtonClass}
+                        onClick={withdrawFunds}
+                        disabled={isWithdrawing}
+                      >
+                        {isWithdrawing ? "Withdrawing..." : "Withdraw Funds"}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div className={cardClass}>
+                <h2 className="mb-1 text-xl font-bold text-slate-800">
+                  🔍 Get Book by ID
+                </h2>
+                <p className="mb-5 text-sm text-slate-500">
+                  Retrieve details for a specific book directly from the smart
+                  contract.
+                </p>
+
+                <div className="space-y-4">
+                  <div>
+                    <label
+                      htmlFor="bookIdGet"
+                      className="mb-1 block text-sm font-medium text-slate-700"
+                    >
+                      Book ID
+                    </label>
+                    <input
+                      type="number"
+                      id="bookIdGet"
+                      value={bookIdGet}
+                      onChange={(e) => setBookIdGet(e.target.value)}
+                      className={inputClass}
+                    />
+                  </div>
+
+                  <button
+                    onClick={getBook}
+                    className={`w-full ${primaryButtonClass}`}
+                  >
+                    Get Book
+                  </button>
+                </div>
+
+                <div className="mt-6 rounded-xl bg-slate-50 p-4">
+                  <h3 className="mb-3 text-lg font-semibold text-slate-800">
+                    Book Details
+                  </h3>
+                  {isBookLoading ? (
+                    <p className="text-slate-500">Loading...</p>
+                  ) : bookDataGet.title ? (
+                    <div className="space-y-2 text-slate-700">
+                      <p>
+                        <strong>Title:</strong> {bookDataGet.title}
+                      </p>
+                      <p>
+                        <strong>Author:</strong> {bookDataGet.author}
+                      </p>
+                      <p>
+                        <strong>Price:</strong> {bookDataGet.price} ETH
+                      </p>
+                      <p>
+                        <strong>Stock:</strong> {bookDataGet.stock}
+                      </p>
+                    </div>
+                  ) : (
+                    <p className="text-slate-500">
+                      No book selected. Enter a valid ID to view details.
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        </>
-      )}
+          </>
+        )}
+      </div>
     </main>
   );
 }
