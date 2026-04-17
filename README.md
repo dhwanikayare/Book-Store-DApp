@@ -171,10 +171,11 @@ Add search and filtering
 Improve UI/UX further
 Add transaction history
 Implement user authentication
+
 Author
 
-## Dhwani
-## GitHub: https://github.com/dhwanikayare
+Dhwani 
+GitHub: https://github.com/dhwanikayare
 
 
 ---
