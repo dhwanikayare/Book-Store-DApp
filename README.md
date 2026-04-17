@@ -80,13 +80,14 @@ To run this application locally:
 
 ## Clone your repository:
 
-```bash
+
 git clone https://github.com/dhwanikayare/Book-Store-DApp.git
 cd Book-Store-DApp
 
+
 ## Install dependencies:
 
-```bash
+
 npm install
 
 
