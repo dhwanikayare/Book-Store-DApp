@@ -78,54 +78,59 @@ To run this application locally:
 
 ### Installation
 
-Clone your repository:
+## Clone your repository:
 
 ```bash
 git clone https://github.com/dhwanikayare/Book-Store-DApp.git
 cd Book-Store-DApp
 
-Install dependencies:
+## Install dependencies:
 
+```bash
 npm install
-Smart Contract Setup
 
-Compile the smart contract:
 
+
+### Smart Contract Setup
+
+## Compile the smart contract:
+```bash
 npx hardhat compile
 
-Start local blockchain:
+## Start local blockchain:
 
 npx hardhat node
 
-Deploy contract (in a new terminal):
+## Deploy contract (in a new terminal):
 
 npx hardhat run scripts/deploy.ts --network localhost
 
-Copy the deployed contract address.
+## Copy the deployed contract address.
 
-Environment Configuration
+## Environment Configuration
 
-Create .env.local:
+## Create .env.local:
 
 NEXT_PUBLIC_CONTRACT_ADDRESS=YOUR_DEPLOYED_CONTRACT_ADDRESS
-Run Frontend
+
+## Run Frontend
 npm run dev
 
-Open:
+##Open:
 
 http://localhost:3000
 MetaMask Configuration
 
-Add Hardhat network:
+##Add Hardhat network:
 
 Network Name: Hardhat Localhost
 RPC URL: http://127.0.0.1:8545
 Chain ID: 31337
 Currency Symbol: ETH
 
-Import a test account using a private key from Hardhat.
+##Import a test account using a private key from Hardhat.
 
-Usage
+##Usage
 1. Connect Wallet
 Click "Connect Wallet"
 Approve MetaMask connection
@@ -142,16 +147,17 @@ Enter Book ID
 View stored blockchain data
 5. Withdraw Funds (Owner Only)
 Withdraw ETH from contract balance
-Code Quality
 
-Code quality is maintained using ESLint integrated with Next.js. This ensures consistent coding standards and reduces potential errors.
+### Code Quality
+
+## Code quality is maintained using ESLint integrated with Next.js. This ensures consistent coding standards and reduces potential errors.
 
 Run:
 
 npm run lint
 Version Control
 
-The project is managed using Git and hosted on GitHub. Development was tracked through multiple commits reflecting:
+## The project is managed using Git and hosted on GitHub. Development was tracked through multiple commits reflecting:
 
 Smart contract enhancements
 Frontend improvements
@@ -165,8 +171,8 @@ Add transaction history
 Implement user authentication
 Author
 
-Your Name
-GitHub: https://github.com/dhwanikayare
+## Dhwani
+## GitHub: https://github.com/dhwanikayare
 
 
 ---
