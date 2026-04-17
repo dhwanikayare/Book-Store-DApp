@@ -289,7 +289,7 @@ export default function Home() {
   }, [contract]);
 
   return (
-    <main className="min-h-screen px-6 md:px-16 py-12 flex flex-col">
+    <main className="min-h-screen bg-slate-50 px-6 md:px-12 py-10">
       <h1 className="text-5xl font-bold w-full text-center pb-8 mb-8 text-blue-500 border-b">
         Book Store DApp
       </h1>
