@@ -115,78 +115,59 @@ export default function Home() {
   }
 };
 
-  const fetchAllBooks = async (activeContract?: ethers.Contract | null) => {
-    const contractToUse = activeContract || contract;
-    if (!contractToUse) return;
-
-    try {
-      setIsFetchingBooks(true);
-      const result = await contractToUse.getAllBooks();
-
-      const formattedBooks: BookCard[] = result.map((book: any) => ({
-        id: book.id.toString(),
-        title: book.title,
-        author: book.author,
-        price: ethers.utils.formatEther(book.price),
-        stock: book.stock.toString(),
-      }));
-
-      setBooks(formattedBooks);
-    } catch (error) {
-      console.error("Error fetching books:", error);
-    } finally {
-      setIsFetchingBooks(false);
-    }
-  };
+  const fetchAllBooks = async () => {
+  try {
+    setIsFetchingBooks(true);
+    const res = await fetch("http://localhost:4000/api/books");
+    const data = await res.json();
+    setBooks(data);
+  } catch (error) {
+    console.error("Error fetching books:", error);
+  } finally {
+    setIsFetchingBooks(false);
+  }
+};
 
   const addBook = async () => {
-    if (!contract) {
-      alert("Connect wallet first.");
-      return;
+  try {
+    setIsAdding(true);
+    setStatusMessage("Adding book through API...");
+
+    const res = await fetch("http://localhost:4000/api/books", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: bookDataAdd.title,
+        author: bookDataAdd.author,
+        price: bookDataAdd.price,
+        stock: Number(bookDataAdd.stock),
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.error || "Failed to add book");
     }
 
-    if (
-      !bookDataAdd.title.trim() ||
-      !bookDataAdd.author.trim() ||
-      !bookDataAdd.price.trim() ||
-      !bookDataAdd.stock.trim()
-    ) {
-      alert("Please fill in all fields.");
-      return;
-    }
+    setBookDataAdd({
+      title: "",
+      author: "",
+      price: "",
+      stock: "",
+    });
 
-    try {
-      setIsAdding(true);
-      setStatusMessage("Adding book...");
-
-      const tx = await contract.addBook(
-        bookDataAdd.title,
-        bookDataAdd.author,
-        ethers.utils.parseEther(bookDataAdd.price),
-        Number(bookDataAdd.stock)
-      );
-
-      await tx.wait();
-
-      setBookDataAdd({
-        title: "",
-        author: "",
-        price: "",
-        stock: "",
-      });
-
-      setStatusMessage("Book added successfully.");
-      alert("Book added successfully!");
-      await fetchAllBooks();
-    } catch (error) {
-      console.error("Error adding book:", error);
-      setStatusMessage("Failed to add book.");
-      alert("Error adding book. Check the console for details.");
-    } finally {
-      setIsAdding(false);
-    }
-  };
-
+    setStatusMessage("Book added successfully through API.");
+    await fetchAllBooks();
+  } catch (error) {
+    console.error("Error adding book:", error);
+    setStatusMessage("Failed to add book.");
+  } finally {
+    setIsAdding(false);
+  }
+};
   const purchaseBook = async () => {
     if (!contract) {
       alert("Connect wallet first.");
@@ -231,39 +212,32 @@ export default function Home() {
     }
   };
 
-  const getBook = async () => {
-    if (!contract) {
-      alert("Connect wallet first.");
-      return;
-    }
+const getBook = async () => {
+  if (!bookIdGet) {
+    alert("Please enter a Book ID.");
+    return;
+  }
 
-    if (!bookIdGet) {
-      alert("Please enter a Book ID.");
-      return;
-    }
+  try {
+    setIsBookLoading(true);
+    const res = await fetch(`http://localhost:4000/api/books/${bookIdGet}`);
+    const book = await res.json();
 
-    try {
-      setIsBookLoading(true);
+    setBookDataGet({
+      title: book.title,
+      author: book.author,
+      price: book.price,
+      stock: book.stock,
+    });
 
-      const book = await contract.getBook(Number(bookIdGet));
-
-      setBookDataGet({
-        title: book[1],
-        author: book[2],
-        price: ethers.utils.formatEther(book[3]),
-        stock: book[4].toString(),
-      });
-
-      setStatusMessage("Book retrieved successfully.");
-    } catch (error) {
-      console.error("Error getting book:", error);
-      setStatusMessage("Failed to retrieve book.");
-      alert("Error getting book. Check the console for details.");
-    } finally {
-      setIsBookLoading(false);
-    }
-  };
-
+    setStatusMessage("Book retrieved successfully through API.");
+  } catch (error) {
+    console.error("Error getting book:", error);
+    setStatusMessage("Failed to retrieve book.");
+  } finally {
+    setIsBookLoading(false);
+  }
+};
   const withdrawFunds = async () => {
     if (!contract) {
       alert("Connect wallet first.");
