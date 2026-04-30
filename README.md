@@ -1,182 +1,147 @@
-# Decentralized Book Store Management System
+# 📚 Decentralized Book Store DApp
 
-![Ethereum Smart Contract](https://img.shields.io/badge/Ethereum%20Smart%20Contract-Yes-success.svg)
-![MetaMask](https://img.shields.io/badge/MetaMask-Ready-blue.svg)
-![Hardhat](https://img.shields.io/badge/Hardhat-Ready-yellow.svg)
-![Next.js](https://img.shields.io/badge/Next.js-13.0.0-blueviolet.svg)
-
----
-
-## Overview
-
-This project is a decentralized Book Store Management System built using Ethereum smart contracts and a modern web frontend.
-
-The system allows users to interact with a blockchain-based bookstore where books can be added, purchased, and retrieved. It demonstrates full integration between a frontend application and a blockchain backend using MetaMask and ethers.js.
+![Ethereum Smart Contract](https://img.shields.io/badge/Ethereum-Smart%20Contract-success)
+![MetaMask](https://img.shields.io/badge/Wallet-MetaMask-blue)
+![Hardhat](https://img.shields.io/badge/Framework-Hardhat-yellow)
+![Next.js](https://img.shields.io/badge/Frontend-Next.js-blueviolet)
 
 ---
 
-## Key Features
+## 📌 Overview
 
+This project is a **Hybrid Decentralized Application (DApp)** that implements a blockchain-based bookstore system.
+
+The application allows users to:
+- Browse books stored on-chain
+- Purchase books using ETH via MetaMask
 - Add books (owner only)
-- Purchase books using ETH
-- View individual book details
-- Display all available books (catalogue)
-- Withdraw contract funds (owner only)
-- Role-based access control (owner vs user)
-- Real-time blockchain interaction
+- Retrieve book details
+- Interact with a smart contract through a frontend and backend layer
+
+This project demonstrates full-stack DApp development by integrating **frontend, backend, and blockchain components**.
 
 ---
 
-## Technologies Used
+## ⚠️ Acknowledgement
 
-### Frontend
-- Next.js
-- TypeScript
-- Tailwind CSS
-- Ethers.js
+This project is based on and extended from the following open-source repository:
 
-### Backend
-- Solidity
-- Hardhat
+🔗 https://github.com/masterpranay1/Book-Store-DApp
 
-### Blockchain & Tools
-- Ethereum (Hardhat local test network)
-- MetaMask
+Enhancements made include:
+- Addition of a backend API layer
+- Improved frontend UI/UX
+- Better architectural separation (Hybrid DApp design)
+- Enhanced smart contract functionality
 
 ---
 
-## Smart Contract Functionality
+## 🚀 Key Features
 
-The BookStore smart contract includes:
-
-- `addBook()` – Adds new books (owner only)
-- `purchaseBook()` – Allows users to buy books using ETH
-- `getBook()` – Retrieves book details
-- `getAllBooks()` – Returns full book catalogue
-- `withdrawFunds()` – Owner withdraws contract balance
-
-Additional improvements:
-- Input validation using `require`
-- Ownership control using `onlyOwner`
-- Event logging for transactions
-- Purchase tracking using mappings
+- 🔐 Wallet connection using MetaMask  
+- 📚 View books directly from blockchain  
+- 🛒 Purchase books using ETH  
+- ➕ Add books (owner-only access)  
+- 📖 Retrieve book details by ID  
+- 💰 Withdraw contract funds (owner only)  
+- 👥 Role-based access (Owner vs User)  
+- 🔄 Real-time blockchain interaction  
 
 ---
 
-## Getting Started
+## 🧱 Architecture
 
-### Prerequisites
+This project follows a **Hybrid DApp Architecture**:
 
-To run this application locally:
+- **Frontend (Next.js)**  
+  Handles user interaction and UI rendering
 
-- Node.js (LTS recommended)
-- MetaMask extension
-- Hardhat
-- Git
+- **Backend (Node.js + Express)**  
+  Acts as an API layer to communicate with the smart contract
+
+- **Blockchain (Solidity + Hardhat)**  
+  Stores all book data and executes business logic
+
+- **Wallet (MetaMask)**  
+  Used for authentication and transaction signing
+
+This layered approach improves scalability, maintainability, and separation of concerns compared to frontend-only DApps.
 
 ---
 
-### Installation
+## 🛠️ Technologies Used
 
-## Clone your repository:
+### 🎨 Frontend
+- Next.js  
+- TypeScript  
+- Tailwind CSS  
+- DaisyUI  
+- Ethers.js  
 
+### ⚙️ Backend
+- Node.js  
+- Express.js  
 
+### ⛓️ Blockchain
+- Solidity  
+- Hardhat  
+- Ethereum (Local Test Network)  
+
+### 🔧 Tools
+- MetaMask  
+- Git & GitHub  
+
+---
+
+## 📜 Smart Contract Functionality
+
+The smart contract includes:
+
+- `addBook()` → Add a new book (owner only)  
+- `purchaseBook()` → Purchase book using ETH  
+- `getBook()` → Retrieve a specific book  
+- `getAllBooks()` → Get all books in catalogue  
+- `withdrawFunds()` → Withdraw contract balance (owner only)  
+
+### Additional Improvements
+- Input validation using `require`  
+- Ownership control using `onlyOwner`  
+- Event logging for transactions  
+- Purchase tracking using mappings  
+
+---
+
+## 🔌 Backend API
+
+A backend API was implemented using **Node.js and Express**.
+
+### Available Endpoints:
+
+- `GET /books` → Fetch all books  
+- `GET /books/:id` → Retrieve book by ID  
+- `POST /books` → Add a new book  
+
+The backend communicates with the smart contract using **ethers.js**, providing a structured interface between frontend and blockchain.
+
+---
+
+## ⚙️ Getting Started
+
+### 📋 Prerequisites
+
+Make sure you have installed:
+
+- Node.js (LTS recommended)  
+- MetaMask browser extension  
+- Hardhat  
+- Git  
+
+---
+
+## 📥 Installation
+
+### Clone Repository
+
+```bash
 git clone https://github.com/dhwanikayare/Book-Store-DApp.git
 cd Book-Store-DApp
-
-
-## Install dependencies:
-
-
-`npm install`
-
-
-
-### Smart Contract Setup
-
-## Compile the smart contract:
-
-`npx hardhat compile`
-
-## Start local blockchain:
-
-`npx hardhat node`
-
-## Deploy contract (in a new terminal):
-
-`npx hardhat run scripts/deploy.ts --network localhost`
-
-## Copy the deployed contract address.
-
-## Environment Configuration
-
-## Create .env.local:
-
-`NEXT_PUBLIC_CONTRACT_ADDRESS=YOUR_DEPLOYED_CONTRACT_ADDRESS`
-
-## Run Frontend
-`npm run dev`
-
-## Open:
-
-`http://localhost:3000`
-### MetaMask Configuration
-
-## Add Hardhat network:
-
-`Network Name: Hardhat Localhost`
-`RPC URL: http://127.0.0.1:8545`
-`Chain ID: 31337`
-`Currency Symbol: ETH`
-
-## Import a test account using a private key from Hardhat.
-
-## Usage
-1. Connect Wallet
-Click "Connect Wallet"
-Approve MetaMask connection
-2. Add Book (Owner Only)
-Enter book details
-Submit form
-Book appears in catalogue
-3. Purchase Book
-Enter Book ID and quantity
-Confirm transaction in MetaMask
-Stock updates automatically
-4. Get Book Details
-Enter Book ID
-View stored blockchain data
-5. Withdraw Funds (Owner Only)
-Withdraw ETH from contract balance
-
-### Code Quality
-
-## Code quality is maintained using ESLint integrated with Next.js. This ensures consistent coding standards and reduces potential errors.
-
-Run:
-
-`npm run lint`
-
-### Version Control
-
-## The project is managed using Git and hosted on GitHub. Development was tracked through multiple commits reflecting:
-
-Smart contract enhancements
-Frontend improvements
-Blockchain interaction fixes
-Final integration and testing
-Future Improvements
-Deploy to public testnet (e.g., Sepolia)
-Add search and filtering
-Improve UI/UX further
-Add transaction history
-Implement user authentication
-
-Author
-
-Dhwani 
-GitHub: https://github.com/dhwanikayare
-
-
----
-
