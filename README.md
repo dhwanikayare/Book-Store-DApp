@@ -142,15 +142,15 @@ Make sure you have installed:
 
 ### Clone Repository
 
-```bash
-git clone https://github.com/dhwanikayare/Book-Store-DApp.git
-cd Book-Store-DApp
+
+`git clone https://github.com/dhwanikayare/Book-Store-DApp.git`
+`cd Book-Store-DApp`
 
 ## ⚙️ Installation & Setup
 
 ### 📦 Install Dependencies
 
-```bash
+
 npm install
 
 ---
