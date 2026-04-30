@@ -146,57 +146,52 @@ Make sure you have installed:
 `git clone https://github.com/dhwanikayare/Book-Store-DApp.git`
 `cd Book-Store-DApp`
 
-## ⚙️ Installation & Setup
+### ⚙️ Installation & Setup
 
-### 📦 Install Dependencies
-
-
-npm install
-
----
+## 📦 Install Dependencies
+`npm install`
 
 ### ⛓️ Smart Contract Setup
 ## Compile Contract
 
-```bash
-npx hardhat compile
+`npx hardhat compile`
 
-##Start Local Blockchain
-```bash
-npx hardhat node
+## Start Local Blockchain
+
+`npx hardhat node`
 
 ## Deploy Contract
-```bash
-npx hardhat run scripts/deploy.ts --network localhost
+
+`npx hardhat run scripts/deploy.ts --network localhost`
 
 ## After deployment, copy the contract address.
 
 ### 🔐 Environment Configuration
 
 ## Create a .env.local file in the root directory:
-```bash
-NEXT_PUBLIC_CONTRACT_ADDRESS=YOUR_CONTRACT_ADDRESS
+
+`NEXT_PUBLIC_CONTRACT_ADDRESS=YOUR_CONTRACT_ADDRESS`
 
 ### ▶️ Run Application
-```bash
-npm run dev
+
+`npm run dev`
 
 ## Open in browser:
-```bash
-http://localhost:3000
+
+`http://localhost:3000`
 
 ### 🦊 MetaMask Configuration
 
 ## Add the Hardhat Local Network:
-```bash
-Network Name: Hardhat Localhost
+
+`Network Name: Hardhat Localhost
 RPC URL: http://127.0.0.1:8545
 Chain ID: 31337
-Currency Symbol: ETH
+Currency Symbol: ETH`
 
 ## Import a test account using a private key from Hardhat.
 
-#### 📖 Usage
+### 📖 Usage
 1. Connect Wallet
 Click "Connect Wallet"
 Approve MetaMask connection
@@ -220,10 +215,7 @@ Withdraw ETH from contract balance
 Code quality is maintained using ESLint integrated with Next.js.
 
 Run:
-
-```bash
-
-npm run lint
+`npm run lint`
 
 
 The project is managed using Git and GitHub.
