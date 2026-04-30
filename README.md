@@ -154,39 +154,48 @@ cd Book-Store-DApp
 npm install
 
 
-⛓️ Smart Contract Setup
-Compile Contract
+### ⛓️ Smart Contract Setup
+## Compile Contract
+
+```bash
 npx hardhat compile
-Start Local Blockchain
+
+##Start Local Blockchain
+```bash
 npx hardhat node
-Deploy Contract
+
+## Deploy Contract
+```bash
 npx hardhat run scripts/deploy.ts --network localhost
 
-After deployment, copy the contract address.
+## After deployment, copy the contract address.
 
-🔐 Environment Configuration
+### 🔐 Environment Configuration
 
-Create a .env.local file in the root directory:
-
+## Create a .env.local file in the root directory:
+```bash
 NEXT_PUBLIC_CONTRACT_ADDRESS=YOUR_CONTRACT_ADDRESS
-▶️ Run Application
+
+### ▶️ Run Application
+```bash
 npm run dev
 
-Open in browser:
-
+## Open in browser:
+```bash
 http://localhost:3000
-🦊 MetaMask Configuration
 
-Add the Hardhat Local Network:
+### 🦊 MetaMask Configuration
 
+## Add the Hardhat Local Network:
+```bash
 Network Name: Hardhat Localhost
 RPC URL: http://127.0.0.1:8545
 Chain ID: 31337
 Currency Symbol: ETH
 
-Import a test account using a private key from Hardhat.
+## Import a test account using a private key from Hardhat.
 
-📖 Usage
+#### 📖 Usage
 1. Connect Wallet
 Click "Connect Wallet"
 Approve MetaMask connection
@@ -203,30 +212,21 @@ Enter Book ID
 View stored blockchain data
 5. Withdraw Funds (Owner Only)
 Withdraw ETH from contract balance
-🧪 Code Quality
+
+
+### 🧪 Code Quality
 
 Code quality is maintained using ESLint integrated with Next.js.
 
 Run:
 
+```bash
+
 npm run lint
-🔄 Version Control
+
 
 The project is managed using Git and GitHub.
 
-Commits reflect:
-
-Smart contract improvements
-Backend implementation
-Frontend UI enhancements
-Blockchain interaction fixes
-🔮 Future Improvements
-Deploy to a public testnet (e.g., Sepolia)
-Add search and filtering
-Improve UI/UX further
-Add transaction history
-Implement user authentication
-👩‍💻 Author
 
 Dhwani
 🔗 https://github.com/dhwanikayare
