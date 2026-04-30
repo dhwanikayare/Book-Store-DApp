@@ -145,3 +145,88 @@ Make sure you have installed:
 ```bash
 git clone https://github.com/dhwanikayare/Book-Store-DApp.git
 cd Book-Store-DApp
+
+## ⚙️ Installation & Setup
+
+### 📦 Install Dependencies
+
+```bash
+npm install
+
+
+⛓️ Smart Contract Setup
+Compile Contract
+npx hardhat compile
+Start Local Blockchain
+npx hardhat node
+Deploy Contract
+npx hardhat run scripts/deploy.ts --network localhost
+
+After deployment, copy the contract address.
+
+🔐 Environment Configuration
+
+Create a .env.local file in the root directory:
+
+NEXT_PUBLIC_CONTRACT_ADDRESS=YOUR_CONTRACT_ADDRESS
+▶️ Run Application
+npm run dev
+
+Open in browser:
+
+http://localhost:3000
+🦊 MetaMask Configuration
+
+Add the Hardhat Local Network:
+
+Network Name: Hardhat Localhost
+RPC URL: http://127.0.0.1:8545
+Chain ID: 31337
+Currency Symbol: ETH
+
+Import a test account using a private key from Hardhat.
+
+📖 Usage
+1. Connect Wallet
+Click "Connect Wallet"
+Approve MetaMask connection
+2. Add Book (Owner Only)
+Enter book details
+Submit form
+Book appears in catalogue
+3. Purchase Book
+Enter Book ID and quantity
+Confirm transaction in MetaMask
+Stock updates automatically
+4. Get Book Details
+Enter Book ID
+View stored blockchain data
+5. Withdraw Funds (Owner Only)
+Withdraw ETH from contract balance
+🧪 Code Quality
+
+Code quality is maintained using ESLint integrated with Next.js.
+
+Run:
+
+npm run lint
+🔄 Version Control
+
+The project is managed using Git and GitHub.
+
+Commits reflect:
+
+Smart contract improvements
+Backend implementation
+Frontend UI enhancements
+Blockchain interaction fixes
+🔮 Future Improvements
+Deploy to a public testnet (e.g., Sepolia)
+Add search and filtering
+Improve UI/UX further
+Add transaction history
+Implement user authentication
+👩‍💻 Author
+
+Dhwani
+🔗 https://github.com/dhwanikayare
