@@ -153,6 +153,7 @@ cd Book-Store-DApp
 ```bash
 npm install
 
+---
 
 ### ⛓️ Smart Contract Setup
 ## Compile Contract
